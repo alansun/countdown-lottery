@@ -1,16 +1,33 @@
-import { INCREMENT_COUNT_KEY } from "../actionTypes";
+import { calCountdown } from "helper/counterFormatter";
+import { TICK, SET_TIME } from "../actionTypes";
 const initialState = {
-  countKey: 0,
+  seconds: 0,
+  status: "paused",
+  hour: "00",
+  min: "00",
+  sec: "00",
+  days: "00",
+  milliSec: "0",
 };
-const profileReducer = (state = initialState, action) => {
+const countdownReducer = (state = initialState, action) => {
   switch (action.type) {
-    case INCREMENT_COUNT_KEY:
+    case SET_TIME:
       return {
         ...state,
-        countKey: state.countKey + 1,
+        status: "set_time",
+        seconds: action.payload.mins * 60,
+      };
+    case TICK:
+      const time = calCountdown(state.seconds * 1000);
+      if (time.finish) return { ...state, ...time, status: "paused" };
+      return {
+        ...state,
+        ...time,
+        status: "tick",
+        seconds: (state.seconds - 0.1).toFixed(1),
       };
     default:
       return state;
   }
 };
-export default profileReducer;
+export default countdownReducer;

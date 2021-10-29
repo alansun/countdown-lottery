@@ -1,9 +1,8 @@
 import { createStore, combineReducers } from "redux";
-import profileReducer from "./reducers/profile";
-import counterReducer from "./reducers/counter";
+import countdownReducer from "./reducers/counter";
+
 const rootReducer = combineReducers({
-  profile: profileReducer,
-  counter: counterReducer,
+  counter: countdownReducer,
 });
 export const store = createStore(
   rootReducer,

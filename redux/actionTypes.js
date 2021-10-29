@@ -1,2 +1,2 @@
-export const UPDATE_PROFILE = "UPDATE_PROFILE";
-export const INCREMENT_COUNT_KEY = "INCREMENT_COUNT_KEY";
+export const SET_TIME = "SETTING_TIME_AND_START";
+export const TICK = "TICK";
