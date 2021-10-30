@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Provider } from "react-redux";
 import { store } from "redux/store";
 
-import "public/normalize.css";
+import "public/css/normalize.css";
 
 function MyApp({ Component, pageProps }) {
   return (

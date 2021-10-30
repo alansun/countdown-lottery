@@ -1,7 +1,10 @@
 import { createStore, combineReducers } from "redux";
+
+import dialogReducer from "./reducers/dialog";
 import countdownReducer from "./reducers/counter";
 
 const rootReducer = combineReducers({
+  dialog: dialogReducer,
   counter: countdownReducer,
 });
 export const store = createStore(

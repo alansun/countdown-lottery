@@ -1,10 +1,13 @@
 import is from "is_js";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 
-import { SET_TIME } from "redux/actionTypes";
+import { SET_TIME, OPEN_DIALOG } from "redux/actionTypes";
+import CandidateList from "views/main/CandidateList";
+import Dialog from "views/Dialog";
 
-export default function Home() {
+const Home = ({ className }) => {
   const intervalRef = useRef(0);
   const countTimeRef = useRef(0);
   const { finish, hour, min, sec, milliSec, status, seconds } = useSelector(
@@ -28,6 +31,7 @@ export default function Home() {
     console.log("status", status);
     if ("set_time" === status) {
       startTimer();
+      dispatch({ type: OPEN_DIALOG });
     }
   }, [status]);
 
@@ -51,8 +55,9 @@ export default function Home() {
       type: "STOP_TIMER",
     });
   };
+
   return (
-    <div>
+    <div className={className}>
       <div>
         <input
           type="number"
@@ -68,7 +73,13 @@ export default function Home() {
         Value from store:
         <p>Time: {`${hour}: ${min}: ${sec}: ${milliSec}`}</p>
       </div>
+      <CandidateList />
+      <Dialog />
       finish: {finish ? "finish" : ""}
     </div>
   );
-}
+};
+
+export default styled(Home)`
+  background-color: white;
+`;
