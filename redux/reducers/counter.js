@@ -1,5 +1,5 @@
 import { calCountdown } from "helper/counterFormatter";
-import { TICK, SET_TIME } from "../actionTypes";
+import { TICK, START_TIMER, STOP_TIMER } from "../actionTypes";
 const initialState = {
   seconds: 0,
   status: "paused",
@@ -11,20 +11,25 @@ const initialState = {
 };
 const countdownReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_TIME:
+    case START_TIMER:
       return {
         ...state,
-        status: "set_time",
+        status: "start",
         seconds: action.payload.mins * 60,
       };
     case TICK:
       const time = calCountdown(state.seconds * 1000);
-      if (time.finish) return { ...state, ...time, status: "paused" };
+      if (time.finish) return { ...state, ...initialState, status: "lottory" };
       return {
         ...state,
         ...time,
         status: "tick",
         seconds: (state.seconds - 0.1).toFixed(1),
+      };
+    case STOP_TIMER:
+      return {
+        ...state,
+        ...initialState,
       };
     default:
       return state;

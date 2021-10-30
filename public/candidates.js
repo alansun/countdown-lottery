@@ -1,4 +1,5 @@
-[
+import { shuffle } from "helper/lottory";
+const candidates = [
   "Alan",
   "Daniel",
   "Danny",
@@ -14,5 +15,8 @@
   "Leona",
   "Luke",
   "Mag",
-  "Vivian"
-]
+  "Vivian",
+];
+
+//shuffle(candidates);
+export default candidates;

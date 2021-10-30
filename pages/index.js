@@ -1,85 +1,57 @@
-import is from "is_js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { SET_TIME, OPEN_DIALOG } from "redux/actionTypes";
+import { TICK, STOP_TIMER, LOTTORY, OPEN_DIALOG } from "redux/actionTypes";
 import CandidateList from "views/main/CandidateList";
 import Dialog from "views/Dialog";
+import Control from "views/main/Control";
+import Countdown from "views/main/Countdown";
 
+let interval;
 const Home = ({ className }) => {
-  const intervalRef = useRef(0);
-  const countTimeRef = useRef(0);
-  const { finish, hour, min, sec, milliSec, status, seconds } = useSelector(
-    (state) => state.counter
-  );
   const dispatch = useDispatch();
+  const { status } = useSelector((state) => state.counter);
+  const { winner } = useSelector((state) => state.candidate);
 
-  const setCountDownTime = () => {
-    const inputTime = +countTimeRef?.current?.value || null;
-    if (!inputTime) return alert("請輸入倒數時間長度");
-    if (is.not.number(inputTime)) return alert("請輸入正確數字");
-    if (inputTime <= 0) return;
-
-    dispatch({
-      type: SET_TIME,
-      payload: { mins: +countTimeRef.current.value },
-    });
-    stopTimer();
-  };
   useEffect(() => {
-    console.log("status", status);
-    if ("set_time" === status) {
+    if ("start" === status) {
+      clearInterval(interval);
       startTimer();
+    }
+    if ("paused" === status) {
+      stopTimer();
+    }
+    if ("lottory" === status) {
+      //stopTimer();
+      dispatch({ type: LOTTORY });
       dispatch({ type: OPEN_DIALOG });
     }
   }, [status]);
 
   const tick = () => {
-    dispatch({
-      type: "TICK",
-    });
-
-    if (seconds <= 0) {
-      stopTimer();
-    }
+    dispatch({ type: TICK });
   };
 
   const startTimer = () => {
-    intervalRef.current = setInterval(tick, 100);
+    interval = setInterval(tick, 100);
   };
   const stopTimer = () => {
-    clearInterval(intervalRef.current);
-    console.log("stop");
-    dispatch({
-      type: "STOP_TIMER",
-    });
+    clearInterval(interval);
+    dispatch({ type: STOP_TIMER });
   };
 
   return (
     <div className={className}>
-      <div>
-        <input
-          type="number"
-          min={0}
-          max={999}
-          placeholder="請輸入要倒數的時間長度"
-          ref={countTimeRef}
-        />
-        分鐘
-      </div>
-      <button onClick={() => setCountDownTime()}>執行</button>
-      <div>
-        Value from store:
-        <p>Time: {`${hour}: ${min}: ${sec}: ${milliSec}`}</p>
-      </div>
+      <Control />
+      <Countdown />
       <CandidateList />
-      <Dialog />
-      finish: {finish ? "finish" : ""}
+      <Dialog data={winner} />
     </div>
   );
 };
 
 export default styled(Home)`
-  background-color: white;
+  max-width: 768px;
+  margin: 0 auto;
 `;

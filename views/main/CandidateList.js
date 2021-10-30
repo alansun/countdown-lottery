@@ -1,24 +1,17 @@
-import is from "is_js";
 import { memo } from "react";
 import styled from "styled-components";
-
-import { shuffle } from "helper/lottory";
-import candidates from "public/candidates.json";
+import { useSelector } from "react-redux";
 
 const CandidateList = memo(({ className }) => {
-  if (is.not.array(candidates)) return;
-  shuffle(candidates);
+  const { candidates } = useSelector((state) => state.candidate);
+
   return (
     <div className={className}>
-      {candidates.map((name, key) => {
+      {candidates.map((name) => {
         return (
-          <div key={key} className="item">
-            <img
-              className="item-img"
-              alt={name}
-              src={`/images/avatar/${name}.png`}
-            />
-            {name}
+          <div key={name} className="item">
+            <img className="item-img" src={`/images/avatar/${name}.png`} />
+            <div>{name}</div>
           </div>
         );
       })}
@@ -27,15 +20,14 @@ const CandidateList = memo(({ className }) => {
 });
 
 export default styled(CandidateList)`
-  width: 200px;
-  height: 400px;
-  overflow-y: auto;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-flow: wrap;
   .item {
     font-size: 20px;
-    display: flex;
     padding: 10px;
-    align-items: center;
-    justify-content: left;
+    text-align: center;
     &:hover {
       color: white;
       background-color: #fdc6c1;

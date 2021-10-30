@@ -1,5 +1,5 @@
 {
-  "name": "countdown-lottery",
+  "name": "countdown-lottory",
   "version": "1.0.0",
   "dependencies": {
     "dayjs": "^1.10.7",

@@ -4,24 +4,23 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { CLOSE_DIALOG } from "redux/actionTypes";
 
-const Dialog = ({ className }) => {
+const Dialog = ({ className, data }) => {
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state) => state.dialog);
   return (
     <div className={`${className} ${isOpen ? "open" : ""}`}>
       <div className="container">
-        <div class="header">
-          <h3>Modal Title</h3>
+        <div className="header">
+          <h3>恭喜獲獎</h3>
           <label onClick={() => dispatch({ type: CLOSE_DIALOG })}>
-            <img
-              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAdVBMVEUAAABNTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU0N3NIOAAAAJnRSTlMAAQIDBAUGBwgRFRYZGiEjQ3l7hYaqtLm8vsDFx87a4uvv8fP1+bbY9ZEAAAB8SURBVBhXXY5LFoJAAMOCIP4VBRXEv5j7H9HFDOizu2TRFljedgCQHeocWHVaAWStXnKyl2oVWI+kd1XLvFV1D7Ng3qrWKYMZ+MdEhk3gbhw59KvlH0eTnf2mgiRwvQ7NW6aqNmncukKhnvo/zzlQ2PR/HgsAJkncH6XwAcr0FUY5BVeFAAAAAElFTkSuQmCC"
-              width="16"
-              height="16"
-              alt=""
-            />
+            <img className="close" src="/images/close.png" />
           </label>
         </div>
-        <p>Content for the modal</p>
+        <div className="content">
+          <img className="crown" src={"/images/crown.png"} />
+          <img className="avatar" src={data?.image} />
+          <div>{data?.name}</div>
+        </div>
       </div>
     </div>
   );
@@ -57,10 +56,6 @@ export default styled(Dialog)`
     height: 300px;
     background-color: #fff;
     z-index: 999;
-    p {
-      padding: 15px;
-      margin: 0;
-    }
   }
   .header {
     background-color: #f9f9f9;
@@ -68,7 +63,6 @@ export default styled(Dialog)`
     height: 50px;
     h3 {
       margin: 0;
-
       padding-left: 15px;
       line-height: 50px;
       color: #4d4d4d;
@@ -81,9 +75,30 @@ export default styled(Dialog)`
       line-height: 50px;
       padding: 0 15px 0 15px;
       cursor: pointer;
-      &:hover img {
+      &:hover .close {
         opacity: 0.6;
       }
+      .close {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  .content {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    position: relative;
+    .avatar {
+      width: 60%;
+    }
+    .crown {
+      width: 20%;
+      position: absolute;
+      top: 0;
+      left: 20%;
+      transform: rotate(-20deg);
     }
   }
 `;
