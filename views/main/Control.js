@@ -20,7 +20,7 @@ const Control = memo(({ className }) => {
       payload: { mins: +countTimeRef.current.value },
     });
   };
-  console.log("control");
+
   return (
     <div className={className}>
       <input
