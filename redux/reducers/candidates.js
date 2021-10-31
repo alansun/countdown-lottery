@@ -1,15 +1,17 @@
 import candidates from "public/candidates";
-import { LOTTORY } from "../actionTypes";
+import { LOTTERY } from "../actionTypes";
+import { arrayLottery } from "helper/lottery";
 
 const initialState = {
   candidates,
-  winner: null,
+  winner: {},
 };
 const candidateReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOTTORY:
+    case LOTTERY:
       const { candidates } = state;
-      const name = candidates[Math.floor(Math.random() * candidates.length)];
+      const lotteryIndex = arrayLottery(candidates);
+      const name = candidates[lotteryIndex];
       const winner = { name: name, image: `/images/avatar/${name}.png` };
       return { ...state, winner };
     default:

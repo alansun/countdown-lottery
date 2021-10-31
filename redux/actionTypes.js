@@ -5,5 +5,5 @@ export const TICK = "TICK";
 export const OPEN_DIALOG = "OPEN_DIALOG";
 export const CLOSE_DIALOG = "CLOSE_DIALOG";
 
-export const LOTTORY = "LOTTORY";
+export const LOTTERY = "LOTTERY";
 export const CANDIDATE_PROFILE = "CANDIDATE_PROFILE";

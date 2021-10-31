@@ -1,4 +1,4 @@
-import { shuffle } from "helper/lottory";
+import { shuffle } from "helper/lottery";
 const candidates = [
   "Alan",
   "Daniel",

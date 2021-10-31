@@ -17,7 +17,7 @@ const Control = memo(({ className }) => {
 
     dispatch({
       type: START_TIMER,
-      payload: { mins: +countTimeRef.current.value / 10 },
+      payload: { mins: +countTimeRef.current.value },
     });
   };
   console.log("control");
@@ -39,9 +39,12 @@ const Control = memo(({ className }) => {
 });
 
 export default styled(Control)`
+  display: flex;
+  padding: 20px;
+  background-color: #3c8961;
   .input {
+    flex: 1;
     padding: 10px 16px;
-    vertical-align: middle;
     background-color: white;
     border: 1px solid rgb(227, 227, 227);
     border-radius: 4px 0 0 4px;
@@ -49,8 +52,6 @@ export default styled(Control)`
   .execute {
     color: white;
     padding: 10px 16px;
-    display: inline-block;
-    vertical-align: middle;
     border-radius: 0 4px 4px 0;
     border: 1px solid #007bff;
     background-color: #007bff;

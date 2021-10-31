@@ -2,29 +2,29 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { TICK, STOP_TIMER, LOTTORY, OPEN_DIALOG } from "redux/actionTypes";
+import { clearAllInterval } from "helper/lottery";
+import { TICK, STOP_TIMER, LOTTERY, OPEN_DIALOG } from "redux/actionTypes";
 import CandidateList from "views/main/CandidateList";
 import Dialog from "views/Dialog";
 import Control from "views/main/Control";
 import Countdown from "views/main/Countdown";
 
-let interval;
 const Home = ({ className }) => {
+  let interval;
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.counter);
   const { winner } = useSelector((state) => state.candidate);
 
   useEffect(() => {
     if ("start" === status) {
-      clearInterval(interval);
       startTimer();
     }
     if ("paused" === status) {
       stopTimer();
     }
-    if ("lottory" === status) {
-      //stopTimer();
-      dispatch({ type: LOTTORY });
+    if ("lottery" === status) {
+      stopTimer();
+      dispatch({ type: LOTTERY });
       dispatch({ type: OPEN_DIALOG });
     }
   }, [status]);
@@ -37,14 +37,14 @@ const Home = ({ className }) => {
     interval = setInterval(tick, 100);
   };
   const stopTimer = () => {
-    clearInterval(interval);
+    clearAllInterval();
     dispatch({ type: STOP_TIMER });
   };
 
   return (
     <div className={className}>
-      <Control />
       <Countdown />
+      <Control />
       <CandidateList />
       <Dialog data={winner} />
     </div>

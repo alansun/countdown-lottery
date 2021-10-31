@@ -19,7 +19,7 @@ const countdownReducer = (state = initialState, action) => {
       };
     case TICK:
       const time = calCountdown(state.seconds * 1000);
-      if (time.finish) return { ...state, ...initialState, status: "lottory" };
+      if (time.finish) return { ...state, ...initialState, status: "lottery" };
       return {
         ...state,
         ...time,

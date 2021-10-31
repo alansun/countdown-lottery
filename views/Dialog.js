@@ -101,4 +101,44 @@ export default styled(Dialog)`
       transform: rotate(-20deg);
     }
   }
+  @media (max-width: 767px) {
+    .container {
+      width: 100%;
+      height: 80vw;
+    }
+    .header {
+      height: 13vw;
+      h3 {
+        margin: 0;
+        padding-left: 4.266vw;
+        line-height: 13vw;
+        font-size: 6vw;
+      }
+      label {
+        line-height: 13vw;
+        padding: 0 4.266vw 0 4.266vw;
+        .close {
+          width: 4.266vw;
+          height: 4.266vw;
+        }
+      }
+    }
+    .content {
+      padding: 4.266vw;
+      font-size: 8vw;
+      font-weight: bolder;
+      text-align: center;
+      position: relative;
+      .avatar {
+        width: 50vw;
+      }
+      .crown {
+        width: 15vw;
+        position: absolute;
+        top: 0;
+        left: 20%;
+        transform: rotate(-20deg);
+      }
+    }
+  }
 `;
